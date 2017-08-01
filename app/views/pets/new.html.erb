@@ -4,8 +4,13 @@
 <%= f.label :breed %>
 <%= f.text_field :breed %>
 <%= f.label :gender %>
-<%= f.text_field :gender %>
+<%= f.label :gender_male, 'Male' %>
+<%= f.radio_button :gender, 'Male' %>
+<%= f.label :gender_female, 'Female' %>
+<%= f.radio_button :gender, 'Female' %>
 <%= f.label :age %>
 <%= f.text_field :age %>
+<%= f.label :description %>
+<%= f.text_area :description %>
 <%= f.submit "Add Pet" %>
 <% end %>

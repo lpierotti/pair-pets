@@ -1,7 +1,9 @@
 class PetsController < ApplicationController
+	before_action :require_login
 
 	def index
 		@pets = Pet.where(user_id: session[:user_id])
+		session[:current_pet_id] = nil
 	end
 
 	def new

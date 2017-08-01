@@ -1,4 +1,4 @@
 class Message < ApplicationRecord
-	belong_to :match
+	belongs_to :match
 	validates :content, presence: true
 end

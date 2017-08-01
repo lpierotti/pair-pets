@@ -1,7 +1,10 @@
 <% @pets.each do |pet| %>
- <p>Name: <%= link_to pet.name, swipes_path %></p>
- <p>Breed:<%= pet.breed %></p>
+<form action="/swipes" method="get">
+	Name: <input type="hidden" name="id" value="<%=pet.id%>">
+	<input type="submit" value= "<%= pet.name %>">
+</form>
  <p>Gender:<%= pet.gender %></p>
+ <p>Breed: <%= pet.breed %></p>
  <p>Age:<%= pet.age %></p>
  <p> <%= link_to "Delete this pet", pet_path(pet), method: :delete %>
  <% end %>

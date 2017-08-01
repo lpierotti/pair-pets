@@ -1,0 +1,10 @@
+<%= @sender.username %>
+<h4>Sending to <%= @receiver.username %></h4>
+<%= form_for :message do |f| %>
+	<%= f.hidden_field :sender_id, value: @sender.id %>
+	<%= f.hidden_field :receiver_id, value: @receiver.id %>
+	<%= f.hidden_field :match_id, value: @match.id %>
+	<%= f.label 'Write your message here...' %>
+	<%= f.text_area :content %>
+	<%= f.submit "Send" %>
+<% end %>

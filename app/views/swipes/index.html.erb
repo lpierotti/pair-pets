@@ -1,0 +1,18 @@
+<% if @random_possible_match != 0 %>
+	<%= Pet.find_by(id: @random_possible_match).name%>
+
+	<%= form_for :swipe do |f| %>
+		<%=f.hidden_field :swiper_id, value: session[:current_pet_id] %>
+		<%=f.hidden_field :swipee_id, value: @random_possible_match %>
+		<%= f.submit "Swipe" %>
+	<% end %>
+	<%= button_to "Skip", swipes_path, method: :get %>
+<% else %>
+	<h1>WE HAVE NO PETS MATCHING YOUR CRITERIA</h1>
+<%end %>
+
+
+
+
+<%= link_to "See your matches", matches_path %>
+<%= link_to "Back to pets", pets_path %>

@@ -1,0 +1,20 @@
+<h2>Inbox</h2>
+<% if @received_messages %>
+	<% @received_messages.each do |message| %>
+		<%= User.find_by(id: message.sender_id).username %><br>
+		<%= message.content %><br>
+		<%= form_for :message, method: :get do |f| %>
+			<%= f.hidden_field :receiver_id, value: @receiver.id %>
+			<%= f.submit "Reply" %>
+		<% end %>
+		<%= button_to "Delete", message_path(message), method: :delete %>
+	<% end %>
+<% end %>
+
+<h2>Sent</h2>
+<% if @sent_messages %>
+	<% @sent_messages.each do |message| %>
+		<%= User.find_by(id: message.receiver_id).username %><br>
+		<%= message.content %><br>
+	<% end %>
+<% end %>

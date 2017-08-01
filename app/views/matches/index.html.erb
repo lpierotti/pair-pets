@@ -1,0 +1,28 @@
+<% if @matches.present? %>
+<p> You have been matched with: </p>
+
+<p><% @matches.each do |match| %>
+	<% if match.pet1_id == session[:current_pet_id] %>
+		<% @matched_2 = Pet.find_by(id: match.pet2_id) %>
+		Name: <%= @matched_2.name %>
+		Breed: <%= @matched_2.breed %>
+		Age: <%= @matched_2.age %><br>
+
+	<% else %>
+		<% @matched_1 = Pet.find_by(id: match.pet1_id) %>
+		Name: <%= @matched_1.name %>
+		Breed: <%= @matched_1.breed %>
+		Age: <%= @matched_1.age %><br>
+	<% end %>
+	
+	<%= form_for :message, url: new_message_path, method: :get do |f| %>
+		<%= f.hidden_field :match_id, value: match.id %>
+		<%= f.submit "Send Message" %>
+	<% end %> 
+<% end %>
+</p>
+<% else %>
+<p> You have no match :'( </p>
+<% end %>
+
+<%= link_to "Back to pets", pets_path %>
