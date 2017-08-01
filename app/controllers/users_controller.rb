@@ -2,7 +2,6 @@ class UsersController < ApplicationController
 
 
 	def new
-		@user = User.new
 	end
 
 	def create
@@ -28,6 +27,10 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
+		@user = User.find(params[:id])
+		@user.destroy
+		session.clear
+		redirect_to root_path
 	end
 
 
