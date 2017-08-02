@@ -3,8 +3,8 @@
 	<% @received_messages.each do |message| %>
 		<%= User.find_by(id: message.sender_id).username %><br>
 		<%= message.content %><br>
-		<%= form_for :message, method: :get do |f| %>
-			<%= f.hidden_field :receiver_id, value: @receiver.id %>
+		<%= form_for :message, url: new_message_path, method: :get do |f| %>
+			<%= f.hidden_field :match_id, value: message.match_id %>
 			<%= f.submit "Reply" %>
 		<% end %>
 		<%= button_to "Delete", message_path(message), method: :delete %>

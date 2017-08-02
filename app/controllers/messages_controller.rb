@@ -3,12 +3,26 @@ class MessagesController < ApplicationController
 	def new
 		@match = Match.find(message_params[:match_id])
 		@sender = User.find_by(id: session[:user_id])
-		if @match.pet1_id == session[:current_pet_id]
-			other_pet = Pet.find_by(id: @match.pet2_id)
-			@receiver = other_pet.user
+		
+		if session[:current_pet_id]
+			if @match.pet1_id == session[:current_pet_id]
+				other_pet = Pet.find_by(id: @match.pet2_id)
+				@receiver = other_pet.user
+			else
+				other_pet = Pet.find_by(id: @match.pet1_id)
+				@receiver = other_pet.user
+			end
 		else
-			other_pet = Pet.find_by(id: @match.pet1_id)
-			@receiver = other_pet.user
+			senders_pets = Pet.find_by_sql(["SELECT id FROM pets WHERE pets.user_id = ?", @sender.id]).map! {|pet| pet.id}
+			if senders_pets.include?(@match.pet1_id)
+				other_pet = Pet.find_by(id: @match.pet2_id)
+				@receiver = other_pet.user
+			else
+				other_pet = Pet.find_by(id: @match.pet1_id)
+				@receiver = other_pet.user
+			end
+
+			
 		end
 		 
 	end
@@ -21,6 +35,8 @@ class MessagesController < ApplicationController
 	def index
 		@sent_messages = Message.where(sender_id: session[:user_id])  
 		@received_messages = Message.where(receiver_id: session[:user_id])
+		# Need create show page and then create session[:current_pet_id] if
+		# it isnt set already.
 	end
 
 	def destroy
