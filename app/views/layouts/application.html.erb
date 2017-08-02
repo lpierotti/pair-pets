@@ -6,16 +6,34 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="animate.min.css">
+    <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
   </head>
 
   <body>
-  	<p><% if session[:user_id] %>
-  		<%= "Hi, #{User.find_by(id: session[:user_id]).username}" %>
-  		<%= link_to "Log Out", logout_path, method: :delete %>
-      <%= link_to "My Pets", pets_path %>
-      <%= link_to "My Messages", messages_path %>
-  	<%end%>
-  	</p>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+          
+
+    <nav>
+    <div class="nav-wrapper pink accent-3">
+    <a href="/" class="brand-logo center"> <i class="material-icons">pets</i> Pair Pets </a>
+      <% if session[:user_id] %>
+      <a href="" class="nav-mobile"><%= "Hi, #{User.find_by(id: session[:user_id]).username}" %></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+          <li><%= link_to "My Pets", pets_path %></li>
+          <li><%= link_to "My Messages", messages_path %></li>
+
+        <%end%>
+      </ul>
+    </div>
+  </nav>
+  	
     <%= yield %>
   </body>
 </html>

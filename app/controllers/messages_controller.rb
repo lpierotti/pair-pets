@@ -13,16 +13,7 @@ class MessagesController < ApplicationController
 				@receiver = other_pet.user
 			end
 		else
-			senders_pets = Pet.find_by_sql(["SELECT id FROM pets WHERE pets.user_id = ?", @sender.id]).map! {|pet| pet.id}
-			if senders_pets.include?(@match.pet1_id)
-				other_pet = Pet.find_by(id: @match.pet2_id)
-				@receiver = other_pet.user
-			else
-				other_pet = Pet.find_by(id: @match.pet1_id)
-				@receiver = other_pet.user
-			end
-
-			
+			@receiver = User.find_by(id: message_params[:receiver_id])
 		end
 		 
 	end

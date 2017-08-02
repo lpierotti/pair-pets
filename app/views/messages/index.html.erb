@@ -1,20 +1,53 @@
-<h2>Inbox</h2>
+<div font-family: 'Work Sans', sans-serif;><h2>Inbox (<%= @received_messages.count %>)</h2></div>
+<table>
+        <thead>
+          <tr>
+              <th>From</th>
+              <th>Message</th>
+          </tr>
+        </thead>
+<tbody>
 <% if @received_messages %>
 	<% @received_messages.each do |message| %>
-		<%= User.find_by(id: message.sender_id).username %><br>
-		<%= message.content %><br>
-		<%= form_for :message, url: new_message_path, method: :get do |f| %>
-			<%= f.hidden_field :match_id, value: message.match_id %>
-			<%= f.submit "Reply" %>
-		<% end %>
-		<%= button_to "Delete", message_path(message), method: :delete %>
-	<% end %>
-<% end %>
 
-<h2>Sent</h2>
-<% if @sent_messages %>
-	<% @sent_messages.each do |message| %>
-		<%= User.find_by(id: message.receiver_id).username %><br>
-		<%= message.content %><br>
+          <tr>
+            <td><%= User.find_by(id: message.sender_id).username %></td>
+            <td><%= message.content %></td>
+            <td><%= form_for :message, url: new_message_path, method: :get do |f| %>
+			<div class="hide"><%= f.hidden_field :match_id, value: message.match_id %>
+			<%= f.hidden_field :receiver_id, value: message.sender_id %></div>
+			<%= f.submit "Reply" %>
+			<%= button_to "Delete", delete_message_path(message), method: :delete %>
+			</td>
+          </tr>
+
+	
 	<% end %>
 <% end %>
+</tbody>
+</table>
+
+<h2>Sent (<%= @sent_messages.count %>)</h2>
+<table>
+        <thead>
+          <tr>
+              <th>Sent to</th>
+              <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+<% if @sent_messages %>
+<tr>
+	<% @sent_messages.each do |message| %>
+	<td><%= User.find_by(id: message.receiver_id).username %></td>
+	<td><%= message.content %></td>
+	<td><%= button_to "Delete", delete_message_path(message), method: :delete %></td>
+		</tr>
+	<% end %>
+
+<% end %>
+</tbody>
+</table>
+
+<% end%>
+

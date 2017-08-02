@@ -1,3 +1,24 @@
-<%= link_to "My Pets", pets_path %>
-<%= link_to "Log Out", logout_path, method: :delete %>
+
+
+<div class="carousel carousel-slider" style="width: 600px; height:500px; margin: 0 auto">
+    <a class="carousel-item" href="#one!"><img src="http://cdn8.whiskeyriff.com/wp-content/uploads/dog-couples-0003.png"></a>
+    <a class="carousel-item" href="#two!"><img src="http://www.dog-names-and-more.com/images/xFunDog38LK.jpg"></a>
+    <a class="carousel-item" href="#three!"><img src="http://cdn.playbuzz.com/cdn/563bce08-8bab-4c83-8af4-ca8a77da7d6e/2ff6d4cf-94cd-4f10-a2f5-5bb5f1aa7a92.jpg"></a>
+    <a class="carousel-item" href="#four!"><img src="http://www.cutecatpix.com/pictures/Cutecatpictures-couple_Catw.jpg"></a>
+  </div>
+
+
+
+	<script >
+		$(document).ready(function(){
+      		$('.carousel.carousel-slider').carousel({fullWidth: true});
+      		  $('.carousel').carousel();
+			  setInterval(function() {
+			    $('.carousel').carousel('next');
+			  }, 3000);
+    	});
+	</script>
+
+
+
 <%= link_to "Delete Account", user_path(session[:user_id]), method: :delete %>

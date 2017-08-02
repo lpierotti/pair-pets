@@ -5,6 +5,7 @@ class Pet < ApplicationRecord
 	has_many :playdates, through: :matches
 	has_many :messages, through: :matches
 	validates :name, :breed, :gender, :age, presence: true
+	mount_uploader :image, ImageUploader
 
 	
 

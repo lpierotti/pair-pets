@@ -10,8 +10,10 @@ class PetsController < ApplicationController
 	end
 
 	def create
+
 		@pet = Pet.new(pet_params)
 		@pet.user_id = session[:user_id]
+
 		if @pet.save
 			redirect_to pets_path
 		else
@@ -19,8 +21,14 @@ class PetsController < ApplicationController
 		end
 	end
 
-	def show
+	def edit
 		@pet = Pet.find(params[:id])
+	end
+
+	def update
+		@pet = Pet.find(params[:id])
+		@pet.update(pet_params)
+		redirect_to pets_path
 	end
 
 	def destroy
@@ -33,6 +41,6 @@ class PetsController < ApplicationController
 	private
 
 	def pet_params
-		params.require(:pet).permit(:name, :breed, :gender, :age)
+		params.require(:pet).permit(:name, :breed, :gender, :age, :description, :image, :remove_image)
 	end
 end
