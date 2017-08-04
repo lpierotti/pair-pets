@@ -1,24 +1,54 @@
+<div class="row container">
+	<h3> <%= @user.username %>'s profile </h3>
 
+    <div class="col s6">
+      <div class="card ">
+        <div class="card-image">
 
-<div class="carousel carousel-slider" style="width: 600px; height:500px; margin: 0 auto">
-    <a class="carousel-item" href="#one!"><img src="http://cdn8.whiskeyriff.com/wp-content/uploads/dog-couples-0003.png"></a>
-    <a class="carousel-item" href="#two!"><img src="http://www.dog-names-and-more.com/images/xFunDog38LK.jpg"></a>
-    <a class="carousel-item" href="#three!"><img src="http://cdn.playbuzz.com/cdn/563bce08-8bab-4c83-8af4-ca8a77da7d6e/2ff6d4cf-94cd-4f10-a2f5-5bb5f1aa7a92.jpg"></a>
-    <a class="carousel-item" href="#four!"><img src="http://www.cutecatpix.com/pictures/Cutecatpictures-couple_Catw.jpg"></a>
-  </div>
+        	<%= image_tag @user.image.swipe.url unless @user.image.blank?%>
+        	<span class="card-title"><%=@user.username %></span>
+        	<% if @user.id == session[:user_id] %>
+	        	<a class="btn-floating halfway-fab waves-effect waves-light red" href="<%=edit_user_path%>">
+	        		<i class="material-icons">edit</i>
+	        	</a>
+         	<% end %>
 
+        </div>
+        <div class="card-content">
+			<p>Hi, I'm from <%= @user.city%>. </p>
+			<p><%= @user.description%></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col s6 center">
+   	  <% @pets.each do |pet| %>
+    	  <div class="row">
+			<div class="col s12">
+		      <div class="card horizontal">
+		      	<div class="card-image">
+		          <%= image_tag pet.image.show.url unless pet.image.blank?%>
+		        </div>  
+			      <div class="card-stacked">
+			        <div class="card-content">
+			          <p><%= pet.name %></p>
+			          <p><%=pet.description%></p>
+			        </div>
+			        <% if @user.id == session[:user_id] %>
+			          <div class="card-action">
+			          	<%= link_to "Edit", edit_pet_path(pet) %>
+			          </div>
+			        <% end %>
+			      </div>
+			  </div>
+			</div>	
+		  </div>
+	  <% end %>
 
+	  <% if @user.id == session[:user_id] %>
+		<a class="waves-effect waves-light btn" href="<%=new_pet_path%>" >Add Pet</a>
+		<a class="waves-effect waves-light btn" href="<%=delete_user_path(session[:user_id])%>" method="delete"> Delete Account</a>
+	  <% end %>
+    </div>
+</div>
 
-	<script >
-		$(document).ready(function(){
-      		$('.carousel.carousel-slider').carousel({fullWidth: true});
-      		  $('.carousel').carousel();
-			  setInterval(function() {
-			    $('.carousel').carousel('next');
-			  }, 3000);
-    	});
-	</script>
-
-
-
-<%= link_to "Delete Account", user_path(session[:user_id]), method: :delete %>

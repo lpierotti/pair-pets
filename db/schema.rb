@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802141108) do
+ActiveRecord::Schema.define(version: 20170804124518) do
+
+  create_table "breeds", force: :cascade do |t|
+    t.string "name"
+  end
 
   create_table "matches", force: :cascade do |t|
     t.integer "pet1_id"
@@ -30,7 +34,7 @@ ActiveRecord::Schema.define(version: 20170802141108) do
 
   create_table "pets", force: :cascade do |t|
     t.string "name"
-    t.string "breed"
+    t.integer "breed_id"
     t.string "gender"
     t.integer "age"
     t.integer "user_id"
@@ -61,6 +65,8 @@ ActiveRecord::Schema.define(version: 20170802141108) do
     t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
+    t.text "description"
   end
 
 end

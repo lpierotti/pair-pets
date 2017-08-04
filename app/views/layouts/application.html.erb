@@ -11,7 +11,7 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   
+
   </head>
 
   <body>
@@ -20,20 +20,57 @@
           
 
     <nav>
-    <div class="nav-wrapper pink accent-3">
+    <div class="nav-wrapper red accent-2">
     <a href="/" class="brand-logo center"> <i class="material-icons">pets</i> Pair Pets </a>
-      <% if session[:user_id] %>
-      <a href="" class="nav-mobile"><%= "Hi, #{User.find_by(id: session[:user_id]).username}" %></a>
+      <% if logged_in %>
+      <a href="<%= user_path(session[:user_id])%>" class="nav-mobile"><%= "Hi, #{User.find_by(id: session[:user_id]).username}!"%></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+      <li><%= link_to "My Profile", user_path(session[:user_id]) %></li>
           <li><%= link_to "My Pets", pets_path %></li>
           <li><%= link_to "My Messages", messages_path %></li>
-
-        <%end%>
+          <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+      <% else %>
+          <%= link_to "Log In", login_path %>
+          <%= link_to "Sign Up", new_user_path %>
+      <%end%>
       </ul>
     </div>
   </nav>
+
+  <div class="section">
   	
     <%= yield %>
+</div>
+
+
+
+     <footer class="page-footer red accent-2">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">About Pair Pets</h5>
+                <p class="grey-text text-lighten-4">Welcome to Pair Pets! Here, you can register your pets and find the perfect lover for them. Simply swipe to view other pets who might be looking for your pet!</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="/testimonials">Testimonial</a></li>
+                  <li><a class="grey-text text-lighten-3" href="https://github.com/jtynerbryan/doggy-rate">Rate Your Date</a></li>
+                  <li><a class="grey-text text-lighten-3" href="https://github.com/yuralala8">Contact Yura</a>
+                  <li><a class="grey-text text-lighten-3" href="https://github.com/lpierotti">Contact Luke</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2017 Copyright Luke & Yura
+            
+            </div>
+          </div>
+        </footer>
+
+
+
   </body>
 </html>

@@ -1,11 +1,14 @@
 class Pet < ApplicationRecord
 	belongs_to :user
+	belongs_to :breed
 	has_many :swipes
 	has_many :matches
 	has_many :playdates, through: :matches
 	has_many :messages, through: :matches
 	validates :name, :breed, :gender, :age, presence: true
 	mount_uploader :image, ImageUploader
+
+	
 
 	
 
@@ -27,7 +30,7 @@ class Pet < ApplicationRecord
 		correct_gender = self.find_correct_gender
 		correct_pets = correct_gender.select {|pet| find_correct_breed(pet)}
 		correct_pets.reject! do |pet|
-			pet.user_id == session[:current_pet_id]
+			pet.user_id == session[:user_id]
 		end
 		correct_pets.map {|pet| pet.id}
 	end
