@@ -1,3 +1,4 @@
+<div class="profile">
 <div class="row container">
 	<h3> <%= @user.username %>'s profile </h3>
 
@@ -27,7 +28,7 @@
 			<div class="col s12">
 		      <div class="card horizontal">
 		      	<div class="card-image">
-		          <%= image_tag pet.image.show.url unless pet.image.blank?%>
+		          <%= image_tag pet.image.show.url, :class => 'img' unless pet.image.blank? %>
 		        </div>  
 			      <div class="card-stacked">
 			        <div class="card-content">
@@ -51,4 +52,4 @@
 	  <% end %>
     </div>
 </div>
-
+</div>
